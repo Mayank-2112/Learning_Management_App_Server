@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import * as dynamoose from 'dynamoose';
+import courseRoutes from './routes/courseRoutes';
 
 dotenv.config();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -26,9 +27,12 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
+app.use('/courses',courseRoutes)
+
 const port = process.env.PORT || 3000;
 if(!isProduction) {
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
-}
+};
+
